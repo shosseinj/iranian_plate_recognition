@@ -150,6 +150,8 @@ from fastapi import File, HTTPException, UploadFile
 @app.post("/api/v1/lpr/video")
 def recognize_video(
     video: UploadFile = File(...),
+    preview :bool =True,
+    
 ) -> dict:
     filename = video.filename or "uploaded_video.mp4"
     suffix = Path(filename).suffix.lower()
@@ -229,6 +231,7 @@ def recognize_video(
                         frame,
                     )
 
+
                     if not saved:
                         print(
                             "[LPR][VIDEO][ERROR] "
@@ -241,7 +244,7 @@ def recognize_video(
                         recognition = (
                             lpr_service.recognize_image_path(
                                 frame_path,
-                                preview=False,
+                                preview=preview,
                                 preview_namespace=namespace,
                             )
                         )

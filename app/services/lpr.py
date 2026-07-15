@@ -241,6 +241,8 @@ class LPRService:
                 output_folder = self.settings.output_dir / "previews" / namespace
                 output_folder.mkdir(parents=True, exist_ok=True)
                 preview_path = output_folder / image_path.name
+                cv2.imshow('Image', annotated)
+                cv2.waitKey(0)
                 if not cv2.imwrite(str(preview_path), annotated):
                     raise RuntimeError(f"Could not save preview image: {preview_path}")
                 preview_url = f"/previews/{namespace}/{image_path.name}"
