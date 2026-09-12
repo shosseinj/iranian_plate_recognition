@@ -52,3 +52,21 @@ FastAPI automatically exposes interactive API documentation at `/docs`. A `/heal
 ## Scope
 
 This project focuses on building a modular recognition service around local deep-learning models. Model quality depends on the supplied detector/OCR checkpoints and should be evaluated separately on the target deployment data.
+
+
+## Goal
+
+The service separates model loading, plate detection, OCR, normalization, and folder monitoring behind a small API that can be tested without embedding the recognition pipeline in a larger application.
+
+## Working with the Repository
+
+Copy `.env.example` to a local `.env`, point it to the detector and complete Hezar recognizer directory, and check `/health` before submitting images. The API implementation is under `app/`, command-line helpers are under `scripts/`, and model layout guidance is in `weights/README.txt`.
+
+Run the development tests with:
+
+```bash
+python -m pip install -r requirements-dev.txt
+pytest
+```
+
+Use the upload endpoint for individual images and the folder endpoints only with server-side paths that the service is permitted to read. Generated previews and recognition outputs should be stored outside the source tree.
